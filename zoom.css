@@ -132,7 +132,7 @@ iphone se
     top: 0;
     width: 100% !important;
     background-color: var(--background-light);
-    z-index: 2;
+    z-index: 5;
 }
 
 #iphoneSE {
@@ -307,7 +307,6 @@ display
 */
 #display .content {
     position: relative;
-    background-color: #0171E3;
 }
 
 #display ul li img {
@@ -315,29 +314,30 @@ display
 }
 
 #display ul li:nth-child(3) img {
-    width: 22rem;
-    top: 4rem;
-    left: 20%;
+    width: 42rem;
+    left: 33%;
+    top: 0rem;
     z-index: 0;
 }
 
 #display ul li:nth-child(2) img {
-    width: 23.5rem;
-    left: 26%;
-    top: 2rem;
+    width: 42rem;
+    left: 33%;
+    top: 0rem;
     z-index: 1;
 }
 
 #display ul li:nth-child(1) img {
-    width: 25rem;
+    width: 42rem;
     left: 33%;
+    top: 0rem;
     z-index: 2;
 }
 
 #display .half-text {
     position: absolute;
     top: 10rem;
-    left: 57%;
+    left: 33%;
     line-height: 1.1;
     font-size: 4rem;
     font-weight: 590;
@@ -346,4 +346,12 @@ display
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
+}
+
+/* 
+footer
+ */
+
+footer {
+    height: 800px;
 }

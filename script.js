@@ -14,6 +14,12 @@ const slide = document.getElementById('slide');
 const iphoneSide = document.getElementById('iphone-side');
 const mask = document.querySelector('#slide .mask');
 const halfText = document.querySelector('#slide .half-text');
+const displayElements = {
+    phone1: document.querySelector('#display ul li:nth-child(1) img'),
+    phone2: document.querySelector('#display ul li:nth-child(2) img'),
+    phone3: document.querySelector('#display ul li:nth-child(3) img'),
+    halfTextRed: document.querySelector('#display .half-text')
+};
 
 
 // get scroll position
@@ -31,7 +37,10 @@ window.addEventListener('scroll', () => {
     zoomEffect(scrollPosition, height);
 
     // slide effect
-    slideEffect(scrollPosition, height);
+    slideEffect(scrollPosition);
+
+    // display phones effect
+    displayEffect(scrollPosition);
 });
 
 function headerEffect(scrollPosition, height) {
@@ -42,6 +51,11 @@ function headerEffect(scrollPosition, height) {
         iphoneSE.classList.remove('fix');
         space[0].classList.remove('space-height1');
     }
+}
+
+
+function linearInterpolation(startValue, endValue, progress) {
+    return startValue + (endValue - startValue) * progress;
 }
 
 /*
@@ -57,6 +71,7 @@ function zoomEffect(scrollPosition, height) {
     const endPosition = 404;
     const textShownPosition = 350;
     const zoomTopInitial = 0;
+    const stopPosition = 600;
 
     // Define transformations and opacity starts and ends
     const transformStart = {
@@ -104,10 +119,10 @@ function zoomEffect(scrollPosition, height) {
             zoomH.style.opacity = opacity;
         }
     }
-}
 
-function linearInterpolation(startValue, endValue, progress) {
-    return startValue + (endValue - startValue) * progress;
+    if (scrollPosition > endPosition && scrollPosition <= stopPosition) {
+        zoom.style.top = `${scrollPosition - startPosition}px`;
+    }
 }
 
 function slideEffect(scrollPosition) {
@@ -206,6 +221,60 @@ function slideEffect(scrollPosition) {
     }
 }
 
+function displayEffect(scrollPosition) {
+    const imgs = [
+        { widthStart: 42, widthEnd: 25, toptart: 0, topEnd: 1, leftStart: 33, leftEnd: 33 },
+        { widthStart: 42, widthEnd: 23.5, toptart: 0, topEnd: 3, leftStart: 33, leftEnd: 26 },
+        { widthStart: 42, widthEnd: 22, toptart: 0, topEnd: 5, leftStart: 33, leftEnd: 20 }
+    ];
+
+    const halfText = {
+        leftStart: 33,
+        leftEnd: 58
+    }
+
+    const startPosition = 2800;
+    const endPosition = 3100;
+    if (scrollPosition >= startPosition && scrollPosition <= endPosition) {
+        const progress = (scrollPosition - startPosition) / (endPosition - startPosition);
+
+        const width1 = linearInterpolation(imgs[0].widthStart, imgs[0].widthEnd, progress);
+        const width2 = linearInterpolation(imgs[1].widthStart, imgs[1].widthEnd, progress);
+        const width3 = linearInterpolation(imgs[2].widthStart, imgs[2].widthEnd, progress);
+        const left1 = linearInterpolation(imgs[0].leftStart, imgs[0].leftEnd, progress);
+        const left2 = linearInterpolation(imgs[1].leftStart, imgs[1].leftEnd, progress);
+        const left3 = linearInterpolation(imgs[2].leftStart, imgs[2].leftEnd, progress);
+        const top1 = linearInterpolation(imgs[0].toptart, imgs[0].topEnd, progress);
+        const top2 = linearInterpolation(imgs[1].toptart, imgs[1].topEnd, progress);
+        const top3 = linearInterpolation(imgs[2].toptart, imgs[2].topEnd, progress);
+        const textLeft = linearInterpolation(halfText.leftStart, halfText.leftEnd, progress);
+
+        displayElements.phone1.style.width = width1 + 'rem';
+        displayElements.phone2.style.width = width2 + 'rem';
+        displayElements.phone3.style.width = width3 + 'rem';
+        displayElements.phone1.style.left = left1 + '%';
+        displayElements.phone2.style.left = left2 + '%';
+        displayElements.phone3.style.left = left3 + '%';
+        displayElements.phone1.style.top = top1 + 'rem';
+        displayElements.phone2.style.top = top2 + 'rem';
+        displayElements.phone3.style.top = top3 + 'rem';
+        displayElements.halfTextRed.style.left = textLeft + '%';
+
+    }
+    if (scrollPosition > endPosition) {
+        displayElements.phone1.style.width = imgs[0].widthEnd + 'rem';
+        displayElements.phone2.style.width = imgs[1].widthEnd + 'rem';
+        displayElements.phone3.style.width = imgs[2].widthEnd + 'rem';
+        displayElements.phone1.style.left = imgs[0].leftEnd + '%';
+        displayElements.phone2.style.left = imgs[1].leftEnd + '%';
+        displayElements.phone3.style.left = imgs[2].leftEnd + '%';
+        displayElements.phone1.style.top = imgs[0].topEnd + 'rem';
+        displayElements.phone2.style.top = imgs[1].topEnd + 'rem';
+        displayElements.phone3.style.top = imgs[2].topEnd + 'rem';
+        displayElements.halfTextRed.style.left = halfText.leftEnd + '%';
+    }
+
+}
 
 // ad show up
 document.addEventListener('DOMContentLoaded', () => {
