@@ -89,10 +89,10 @@ function zoomEffect(scrollPosition, height) {
     } else {
         // During animation
         const progress = (scrollPosition - startPosition) / (endPosition - startPosition);
-        let translateX = linearInterpolation(transformStart.translateX, transformEnd.translateX, progress) + '%';
-        let translateY = linearInterpolation(transformStart.translateY, transformEnd.translateY, progress) + '%';
-        let scale = linearInterpolation(transformStart.scale, transformEnd.scale, progress);
-        let rotate = linearInterpolation(transformStart.rotate, transformEnd.rotate, progress) + 'deg';
+        const translateX = linearInterpolation(transformStart.translateX, transformEnd.translateX, progress) + '%';
+        const translateY = linearInterpolation(transformStart.translateY, transformEnd.translateY, progress) + '%';
+        const scale = linearInterpolation(transformStart.scale, transformEnd.scale, progress);
+        const rotate = linearInterpolation(transformStart.rotate, transformEnd.rotate, progress) + 'deg';
 
         zoomImg.style.transform = `translateX(${translateX}) translateY(${translateY}) scale(${scale}) rotate(${rotate})`;
         zoom.style.top = `${scrollPosition - startPosition}px`;
@@ -111,15 +111,15 @@ function linearInterpolation(startValue, endValue, progress) {
 }
 
 function slideEffect(scrollPosition) {
-    let ranges = [
+    const ranges = [
         { start: 945, end: 1160, translateStart: 10, translateEnd: 0 },
         { start: 1000, end: 1200, translateStart: 24, translateEnd: 0 },
         { start: 1050, end: 1300, translateStart: 38, translateEnd: 0 },
         { start: 1100, end: 1400, translateStart: 52, translateEnd: 0 },
         { start: 1150, end: 1500, translateStart: 66, translateEnd: 0 }
     ];
-    let staticPosition = 1160;
-    let endPosition = 2300;
+    const staticPosition = 1160;
+    const endPosition = 2300;
     const textShownPosition = 1550;
     const textEndPosition = 1650;
     const slideShownPosition = 1700;
@@ -133,14 +133,14 @@ function slideEffect(scrollPosition) {
 
 
     ranges.forEach((range, index) => {
-        let elements = Array.from(fasterText);
+        const elements = Array.from(fasterText);
         if (scrollPosition < range.start) {
             elements[index].style.opacity = 0;
             elements[index].style.transform = `translateX(0%)`;
         } else if (scrollPosition >= range.start && scrollPosition <= range.end) {
-            let progress = (scrollPosition - range.start) / (range.end - range.start);
-            let translateX = linearInterpolation(range.translateStart, range.translateEnd, progress) + '%';
-            let opacity = linearInterpolation(0, 1, progress);
+            const progress = (scrollPosition - range.start) / (range.end - range.start);
+            const translateX = linearInterpolation(range.translateStart, range.translateEnd, progress) + '%';
+            const opacity = linearInterpolation(0, 1, progress);
             elements[index].style.transform = `translateX(${translateX})`;
             elements[index].style.opacity = opacity;
         } else if (scrollPosition > range.end) {
