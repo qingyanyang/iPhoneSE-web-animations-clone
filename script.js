@@ -21,12 +21,12 @@ const displayElements = {
     halfTextRed: document.querySelector('#display .half-text')
 };
 
-
-// get scroll position
-window.addEventListener('scroll', () => {
+window.addEventListener('scroll', handleScrollEffects);
+function handleScrollEffects() {
     // common vars
     const scrollPosition = window.scrollY;
     const height = 52;
+
     // debug
     console.log(scrollPosition);
 
@@ -41,7 +41,7 @@ window.addEventListener('scroll', () => {
 
     // display phones effect
     displayEffect(scrollPosition);
-});
+}
 
 function headerEffect(scrollPosition, height) {
     if (scrollPosition > height) {

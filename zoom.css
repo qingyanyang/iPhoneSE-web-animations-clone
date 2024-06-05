@@ -355,3 +355,65 @@ footer
 footer {
     height: 800px;
 }
+
+
+/*responsive*/
+@media only screen and (max-width:1150px) {
+
+    #header {
+        height: 104px;
+    }
+
+    #iphoneSE, #nav-bar {
+        width: 100%;
+    }
+
+    #nav-bar ul li:last-child {
+        display: block;
+    }
+
+    #ad, .space {
+        visibility: hidden;
+    }
+
+    .small-hide {
+        display: none;
+    }
+
+    .container {
+        width: 80vw;
+    }
+
+    #nav-bar svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* 
+    translateX: 15,  // Percentage
+        translateY: 22,  // Percentage
+        scale: 0.78,
+        rotate: 90  
+    */
+
+    /* zoom */
+    #zoom {
+        width: 100vw;
+        overflow: hidden;
+    }
+
+    #zoom h2 {
+        opacity: 1;
+    }
+
+    #zoom img {
+        transform: translateX(15%) translateY(22%) scale(0.78) rotate(90deg);
+    }
+
+    /* slide */
+    #slide, #display {
+        display: none;
+        width: 100vw;
+        overflow: hidden;
+    }
+}
